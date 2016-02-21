@@ -8,10 +8,12 @@ class Tree < Node
     def initialize(root = nil,compare = lambda{|node| node.getData()})
         @root = root
         @compare = compare
+        @level = 0
         @orderMethods = OrderTree.new(@root) ##Metodos de recorridos
         @addMethods = AddTree.new(@root,@compare) ##Metodos de agregado
         @searchMethods = SearchTree.new(@root,@compare) ## Metodos de busqueda en arbol
         @removeMethods = RemoveTree.new(@root,@compare) ##Metodos para remover elementos
+        @drawMethods = DrawTree.new(@root,@compare)
     end
     
     #Inicializa el valor de la raiz
@@ -82,7 +84,7 @@ class Tree < Node
 ##Inicia metodo de busqueda en el arbol
 
     def search(value)
-        @searchMethods.searchAtTree(value, @root)
+        return @searchMethods.searchAtTree(value, @root)
     end
     
     ##Busca elmento en todo el arbol y retorna la ruta del nodo en caso de existir
@@ -96,7 +98,15 @@ class Tree < Node
     
     ##Elimina un nodo del arbol binario
     def delete(value)
-        @removeMethods.delete(value)
+        if search(value)
+            return @removeMethods.delete(value)
+        else
+            return false
+        end
     end
+    
+   def draw()
+       @drawMethods.draw(@root, getLevel())
+   end
 
 end

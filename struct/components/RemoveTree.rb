@@ -14,7 +14,7 @@ class RemoveTree
     def delete(value)
 	   
        if @root == nil 
-           return nil
+           return false
        end
        
        if value == @root.getData()
@@ -24,7 +24,7 @@ class RemoveTree
            
            @root = temp_root.getRight()
            
-           return @root
+           return true
        end
         #Obtenemos el nodo a remover
 	   toRemove = selectElement(value,@root)
@@ -36,7 +36,7 @@ class RemoveTree
            promote(toRemove,father) ##Verificamos si es hijo unico
        end
               
-       return father
+       return true
     end
     
     def isLeaft(node,father)
@@ -121,17 +121,19 @@ class RemoveTree
     
     #Obtiene el nodo de un elemento buscado
     def selectElement(value, node)
-        lastElement = node
-        comparacion = @compare.call(value,node)
-        
-        if comparacion == 0
-            return lastElement
+        if node != nil
+            lastElement = node
+            comparacion = @compare.call(value,node)
+
+            if comparacion == 0
+                return lastElement
+            end
+
+            if comparacion > 0
+                return selectElement(value, node.getRight())
+            else
+                return selectElement(value, node.getLeft())
+            end  
         end
-        
-        if comparacion > 0
-            return selectElement(value, node.getRight())
-        else
-            return selectElement(value, node.getLeft())
-        end 
     end
 end
