@@ -9,4 +9,4 @@
 * Ways
 
 ###Visual implementation
-*In progress...
+*Console representation of binary tree
