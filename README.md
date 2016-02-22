@@ -3,10 +3,10 @@
 ##No requeriments.
 
 ##Structure of binary tree, with methods of:
-*Add
-*Remove
-*Search
-*Ways
+* Add
+* Remove
+* Search
+* Ways
 
 ###Visual implementation
-*In progress...
+*Console representation of binary tree
