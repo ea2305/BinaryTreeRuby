@@ -8,8 +8,8 @@
 
 class DrawTree
 
-    #SPACE = 79
-    SPACE = 120
+    SPACE = 60
+    #SPACE = 100
     EMPTY = 'X'
 
     def initialize(root = nil, compare = lambda do |node| node.getData() end)
@@ -21,39 +21,50 @@ class DrawTree
     Dibuja representacion del arbol actual
     recive los nivels del arbol actual
 =end
+
     def draw(levels)
-	   puts levels 
-        for i in 0..levels
-            baseWidth = (SPACE / (2**(i + 1)) ).to_i ##Calculo de la separacion de elementos            
-            stack = getElementsInLevel(i)#Otenemos los elementos del nivel
-            printLinesLevel(baseWidth,i) #Impresion de elementos 
-            printLevel(baseWidth,stack,i) ##Imprimimos los elementos del nivel
+        getLimit(SPACE)
+        method_draw(levels,SPACE,0)
+    end
+    def method_draw(levels,size,current)
+        
+        if(levels >= current)
+            baseWidth = (size / 2).to_i ##Calculo de la separacion de elementos            
+            stack = getElementsInLevel(current)#Otenemos los elementos del nivel
+            printLinesLevel(baseWidth,stack,current) #Impresion de elementos 
+            printLevel(baseWidth,stack,current) ##Imprimimos los elementos del nivel
             puts ##Saltamos de linea
+            
+            method_draw(levels,baseWidth,current += 1)
         end
     end
 
     ##Imprimimos lo elementos del stack : contenido del nilvel en el arbol
     #Importante recivir ele estack de elementos, para impresion de nodos    
     def printLevel(baseWidth,stack,i)
+        #print stack
         for j in 0..(( 2**i ) - 1)
-            printSpace(baseWidth - 1) #imprimimos la separacion del nodo
+            element = stack[j].to_s.length             
+            printSpace(baseWidth - element) #imprimimos la separacion del nodo
             print stack[j] #Impresion del contenido del nodo
             printSpace(baseWidth) #Impresion de separacion de nodo a nodo
         end
     end
     
     #Impresion de lineas para conectar hojas con ramas
-    def printLinesLevel(baseWidth,i)
+    def printLinesLevel(baseWidth,stack,i)
         if i == 0
             return
         end
         dir = 1
         for j in 0..(( 2**i ) - 1)
+            element = stack[j].to_s.length 
             printSpace(baseWidth - 1) #imprimimos la separacion del nodo
             if dir > 0
                 print "/"
             else
                 print "\\"
+                
             end                    
             printSpace(baseWidth) #Impresion de separacion de nodo a nodo
             dir *= -1 
@@ -72,13 +83,11 @@ class DrawTree
     def getLimit(start_size)
         # 79 espacios para consola normal
         # 140 espacios para consola completa         
-        for i in 0..start_size
-            puts "#{i}"
-            for j in 0..i
-                print "x"
-            end
-            puts
+
+        for j in 0..start_size
+            print "x"
         end
+        puts
     end
     
     #Otiene los elementos dentro de un nivel del arbol binario
@@ -105,8 +114,8 @@ class DrawTree
             return stack
         else #En caso de que elemento se sea un nodo inexistente
             if level > current
-               target = 2**((level - current) + 1) #Calculamos la diferencia de nivel
-               for i in 0..target
+               target = 2**((level - current)) #Calculamos la diferencia de nivel
+               for i in 0..(target - 1)
                    stack.push(EMPTY) ##Agregamos elemento basura
                end
             end

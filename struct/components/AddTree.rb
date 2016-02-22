@@ -6,12 +6,9 @@ class AddTree
     end
 
     def add(value)
-        #Verificamos si la raiz no esta vacia
-        if @root == nil
-            setRoot(Node.new(value))
-        else
-            addInNode(value, @root)   
-        end        
+        puts "in class"     
+        puts @root.getData()     
+        addInNode(value, @root)     
     end
     
     #Agregar al nodo por gerarqui da valor
@@ -36,5 +33,10 @@ class AddTree
                 addInNode(value, node.getLeft())
             end
         end 
+    end
+    
+    #Inicializa el valor de la raiz
+    def setRoot(root = nil)
+        @root = root
     end
 end

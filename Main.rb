@@ -7,17 +7,24 @@ load './struct/components/SearchTree.rb'
 load './struct/components/RemoveTree.rb'
 load './struct/components/DrawTree.rb'
 
-myTree = Tree.new(Node.new(50),lambda do |x,y|  #inicializamos arbol binario
+myTree = Tree.new(nil,lambda do |x,y|  #inicializamos arbol binario
     return  ( x > y.getData() )? 1 : ( ( x == y.getData())? 0 : -1 )   
 end)
 
+puts "\nAGREGAR ELEMENTOS AL ARBOL ...."
 
-for i in [10,59,70,58,11,12,100,200,13,11.5] do myTree.add(i) end
+for i in [50,20,70,10,14,80,92,100] do 
+    puts "Agregamos elemento : [#{i}]" 
+    myTree.add(i) 
+end
 
-
+puts "\nRECORRIDOS DEL ARBOL...."
+puts "\t PRE ORDER"
 myTree.preOrder(lambda do |x| 
     puts"#{x.getData()}" 
 end)
+
+puts "\nELIMINAR ELEMENTOS DEL ARBOL"
 
 Eliminate = 79
 
@@ -28,12 +35,7 @@ else
     puts "El nodo no se encuentra en el árbol"
 end
 
-puts ">>>>>>>>"
-
-myTree.preOrder(lambda do |x| 
-    puts"#{x.getData()}" 
-end)
 =begin
 =end
-puts "DIBUJADO"
+puts "\nDIBUJADO DE ARBOL BINARIO"
 myTree.draw()

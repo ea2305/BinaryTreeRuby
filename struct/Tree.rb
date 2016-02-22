@@ -9,16 +9,16 @@ class Tree < Node
         @root = root
         @compare = compare
         @level = 0
+        startMethods()##Creamos objetos y establecemos conexion con arbol a clases
+    end    
+    
+    #Inicializa las referencias al arbol
+    def startMethods()
         @orderMethods = OrderTree.new(@root) ##Metodos de recorridos
         @addMethods = AddTree.new(@root,@compare) ##Metodos de agregado
         @searchMethods = SearchTree.new(@root,@compare) ## Metodos de busqueda en arbol
         @removeMethods = RemoveTree.new(@root,@compare) ##Metodos para remover elementos
         @drawMethods = DrawTree.new(@root,@compare)
-    end
-    
-    #Inicializa el valor de la raiz
-    def setRoot(root = nil)
-        @root = root
     end
     
     #Asigna nodo en la posicion izquierda
@@ -69,16 +69,21 @@ class Tree < Node
         
 #Agregar al arbol completo
 #Metodo de insercion por comparacion de nodo
-#Recivomos el calor a agregar, con la funcion lambda para evaluar el valor
-#Compare : Lamda con metodo de comparacionAgr	
+#Recivimos el valor a agregar, con la funcion lambda para evaluar al elemento
         
     def add(value)
-        @addMethods.add(value)
+        if @root == nil
+            @root = Node.new(value)       
+            startMethods()
+        else
+            @addMethods.add(value)
+        end
+        
     end
     
-     def addInNode(value,node)
+    def addInNode(value,node)
         @addMethods.addInNode(value,node)
-     end
+    end
 #Fin de metodos de agregar al arbol
 
 ##Inicia metodo de busqueda en el arbol
@@ -106,7 +111,7 @@ class Tree < Node
     end
     
    def draw()
-       @drawMethods.draw(@root, getLevel())
+       @drawMethods.draw(getLevel())
    end
 
 end
