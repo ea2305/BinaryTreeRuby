@@ -8,5 +8,11 @@
 * Search
 * Ways
 
+## Principal main at Main
+
+´´´
+ruby Main.rb
+´´´
+
 ###Visual implementation
-*Console representation of binary tree
+*Console representation of binary tree 5 levels

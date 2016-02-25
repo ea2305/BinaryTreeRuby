@@ -106,24 +106,7 @@ class Tree < Node
 ##Inicia metodo de busqueda en el arbol
 
     def search(value)
-        nodo = @searchMethods.searchAtTree(value, @root)
-        if nodo  == nil
-            puts "\n*** EL DATO NO SE ENCUENTRA EN EL ÁRBOL"
-        else
-            if nodo.getData() == @root.getData()
-                puts " * EL NIVEL DEL NODO ES : 0"
-                return nodo
-            end
-            puts " * EL NIVEL DEL NODO ES : #{nodo.getLevel()} ."
-
-            puts "\n*** EL DATO FUE LOCALIZADO EN EL ÁRBOL"
-            if (nodo.getLeft() == nil and nodo.getRight() == nil)
-                puts "ES UN HOJA !"
-            else
-                puts "ES UNA RAMA !"
-            end
-        end
-        return nodo
+        return @searchMethods.searchAtTree(value, @root)
     end
 
     ##Busca elmento en todo el arbol y retorna la ruta del nodo en caso de existir
@@ -139,17 +122,15 @@ class Tree < Node
     def delete(value)
         if search(value)
             if value == @root.getData()#Descartamos la eliminacion de la raiz
-                if @root.getLeft() == nil and @root.getRight() == nil
+                if @root.getLeft() == nil and @root.getRight() == nil#verificamos el caso
                     @root = nil
                 else
                     temp_root = Node.new(-100000) #Asignamos nodo temporal
                     @removeMethods.promote(@root,temp_root) #encontramos el mejor elemento
                     @root = temp_root.getRight() #Asignamos nuevo nodo con remplazo ideal
                 end
-
                 startMethods() ##enviamos actualizacion de nodo
                 return true
-
             else
                 return @removeMethods.delete(value)
             end

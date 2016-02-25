@@ -1,3 +1,8 @@
+=begin
+    Main del Arbol binario
+    author : Elihu A. Cruz Albores
+    version : 1.0.4
+=end
 
 load './struct/components/Node.rb'
 load './struct/Tree.rb'
@@ -64,7 +69,19 @@ while (seleccion != 8)
     when 2
         printSeparation(50)
         dato = printData("INTRODUZCA UN DATO A BUSCAR : ")
-        myTree.search(dato.to_i)
+        nodo = myTree.search(dato.to_i)
+        if nodo  == nil
+            puts "\n*** EL DATO NO SE ENCUENTRA EN EL ÁRBOL"
+        else
+            puts " * EL NIVEL DEL NODO ES : #{nodo.getLevel()} ."
+
+            puts "\n*** EL DATO FUE LOCALIZADO EN EL ÁRBOL"
+            if (nodo.getLeft() == nil and nodo.getRight() == nil)
+                puts "ES UN HOJA !"
+            else
+                puts "ES UNA RAMA !"
+            end
+        end
 
         printSeparation(50)
 
