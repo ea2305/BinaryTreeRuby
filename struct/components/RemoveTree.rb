@@ -16,17 +16,8 @@ class RemoveTree
        if @root == nil 
            return false
        end
-       
-       if value == @root.getData()
-           temp_root = Node.new(-27777)
-           
-           promote(@root,temp_root)
-           
-           @root = temp_root.getRight()
-           
-           return true
-       end
-        #Obtenemos el nodo a remover
+      
+       #Obtenemos el nodo a remover
 	   toRemove = selectElement(value,@root)
         
        ## Mandamos a buscar al padre del nodo
@@ -39,6 +30,7 @@ class RemoveTree
        return true
     end
     
+    ##Verifica si el nodo es una hoja y la elimina
     def isLeaft(node,father)
         if (node.getLeft() == nil && node.getRight() == nil)
             if father.getData() < node.getData()
@@ -51,9 +43,10 @@ class RemoveTree
        return nil     
     end
     
+    #Obtiene el mejor remplazo para el nodo dado
     def promote(node,father)
+    
         if (node.getLeft() == nil)
-            
             current = nil
             tempNode = node.getRight()
             while tempNode != nil do
@@ -61,7 +54,6 @@ class RemoveTree
                 tempNode = tempNode.getLeft()
             end
         else
-        
             tempNode = node.getLeft()
             current = tempNode
             while tempNode != nil do
@@ -71,29 +63,31 @@ class RemoveTree
         end
             #Obtenemos nodo padre
             newParent = getFather(current.getData(),@root,current)
-            newNode = getLastChild(current,newParent)
-            
-            newNode.setLeft(node.getLeft())
-            newNode.setRight(node.getRight())
+            getLastChild(current,newParent)
+                
+            current.setLeft(node.getLeft())
+            current.setRight(node.getRight())
             
             if father.getData() < node.getData()
-               
-               father.setRight(newNode)
+               father.setRight(current)
             else
-               father.setLeft(newNode)
+               father.setLeft(current)
             end
             
     end
     
     def getLastChild(node,father)
-        saveNode = nil
         if father.getData() < node.getData()
             father.setRight(node.getLeft())
+            if father.getRight() == nil
+                father.setRight(node.getRight())
+            end
         else
             father.setLeft(node.getRight())
+            if father.getLeft() == nil
+                father.setLeft(node.getLeft())
+            end
         end
-
-        return node
     end
     
     #Obtiene el padre de un elemento buscado

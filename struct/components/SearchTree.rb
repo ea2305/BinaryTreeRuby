@@ -1,3 +1,9 @@
+=begin
+    Busqueda de elemntos ordenados y no ordenados
+    author : Elihu Alejandro Cruz Albores
+    version : 1.0.5  
+=end
+
 class SearchTree
 
     def initialize(root = nil, compare = lamda do |node| return node.getData() end)
@@ -11,7 +17,6 @@ class SearchTree
     
     #Busqueda de elemento en el arbol
     def searchAtTree(value, node)
-        
         if node == nil ## verificamos que le nodo no este vacio
             return nil
         end

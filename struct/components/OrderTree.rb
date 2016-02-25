@@ -6,12 +6,12 @@
 =end
 
 class OrderTree 
-   
-   #constructor
-   def initialize(root = nil)
-    @root = root
-   end
-   
+
+    #constructor
+    def initialize(root = nil)
+        @root = root
+    end
+
     #*Pre Orider : obtiene el elemento central, izquierda y derecha    
     def method_preOrder(node,myLambda)
         if node != nil
@@ -100,8 +100,4 @@ class OrderTree
             end
         end
     end
-    
-=begin
-    Fin de recorridos de alrbol 
-=end
 end

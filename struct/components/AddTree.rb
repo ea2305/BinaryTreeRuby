@@ -8,29 +8,33 @@ class AddTree
     def add(value)
         puts "in class"     
         puts @root.getData()     
-        addInNode(value, @root)     
+        addInNode(value, @root, 0)     
     end
     
     #Agregar al nodo por gerarqui da valor
-    def addInNode(value,node)
+    def addInNode(value,node, level)
         temp_compare = @compare.call(value, node)
         
         #Verificamos que el arbol no cuente con elementos repetidos.
         if temp_compare == 0
             return
         end
-    
+        level += 1
         if temp_compare > 0 ##Ejecuta la lambda de comparacion
             if node.getRight() == nil
-                node.setRight(Node.new(value))
+                temp = Node.new(value)
+                temp.setLevel(level)
+                node.setRight(temp)
             else    
-                addInNode(value, node.getRight())
+                addInNode(value, node.getRight(), level)
             end
         else
             if node.getLeft() == nil
-                node.setLeft(Node.new(value))
+                temp = Node.new(value)
+                temp.setLevel(level)
+                node.setLeft(temp)
             else    
-                addInNode(value, node.getLeft())
+                addInNode(value, node.getLeft(), level)
             end
         end 
     end
